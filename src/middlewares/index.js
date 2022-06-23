@@ -1,9 +1,9 @@
-const { authenticateMiddleware } = require('./authenticateMiddleware');
+const { authMiddleware } = require('./authenticateMiddleware');
 const { errorMiddleware } = require('./errorMiddleware');
 const { validateLogin } = require('./loginMiddleware');
 
 module.exports = {
-  authenticateMiddleware,
+  authMiddleware,
   errorMiddleware,
   validateLogin,
 };
