@@ -13,8 +13,8 @@ const authMiddleware = (req, res, next) => {
     // descriptografa o token e valida se ele bate com a senha secreta
     // essa função por si se só já levanta um erro sozinha se der uma inconsistência entre o token e o segredo
     const decoded = jwt.verify(authorization, TOKEN_SECRET);
-    const user = decoded.email;
-    req.user = user;
+    const userInfo = decoded;
+    req.user = userInfo;
     next();
   } catch (e) {
     next(INVALID_TOKEN);
