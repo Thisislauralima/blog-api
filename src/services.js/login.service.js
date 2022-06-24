@@ -8,6 +8,7 @@ const jwtConfig = {
   expiresIn: '1h',
   algorithm: 'HS256',
 };
+
 const userLogin = async (email, password) => {
   const user = await User.findAll({ where: { email, password } });
   if (!user.length) {

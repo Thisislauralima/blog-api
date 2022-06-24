@@ -32,8 +32,15 @@ const getUserById = async (req, res, next) => {
   return res.status(200).json(user[0]);
 };
 
+const setCategory = async (req, res, _next) => {
+  const { name } = req.body;
+  const category = await userService.setCategory(name);
+  return res.status(201).json(category);
+};
+
 module.exports = {
   setUser,
   getUsers,
   getUserById,
+  setCategory,
 };

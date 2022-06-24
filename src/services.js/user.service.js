@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { User } = require('../database/models');
+const { User, Category } = require('../database/models');
 
 const { USER_ALREADY_REGISTERED, USER_NOT_FOUND } = require('../utils/constants');
 
@@ -39,8 +39,20 @@ const getUserById = async (id) => {
   return user;
 };
 
+const setCategory = async (category) => {
+  const newCategory = await Category.create({ name: category });
+
+  const categoryObj = {
+    id: newCategory.dataValues.id,
+    name: newCategory.dataValues.name,
+  };
+  
+  return categoryObj;
+};
+
 module.exports = {
   setUser,
   getUsers,
   getUserById,
+  setCategory,
 };
