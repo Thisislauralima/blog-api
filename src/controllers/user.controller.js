@@ -1,4 +1,4 @@
-const userService = require('../services.js/user.service');
+const userService = require('../services/user.service');
 const { USER_ALREADY_REGISTERED, USER_NOT_FOUND } = require('../utils/constants');
 
 const setUser = async (req, res, next) => {
@@ -32,21 +32,8 @@ const getUserById = async (req, res, next) => {
   return res.status(200).json(user[0]);
 };
 
-const setCategory = async (req, res, _next) => {
-  const { name } = req.body;
-  const category = await userService.setCategory(name);
-  return res.status(201).json(category);
-};
-
-const getCategories = async (req, res, _next) => {
-  const categories = await userService.getCategories();
-  return res.status(200).json(categories);
-};
-
 module.exports = {
   setUser,
   getUsers,
   getUserById,
-  setCategory,
-  getCategories,
 };

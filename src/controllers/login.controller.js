@@ -1,4 +1,4 @@
-const loginService = require('../services.js/login.service');
+const loginService = require('../services/login.service');
 const { INVALID_FIELDS } = require('../utils/constants');
 
 const login = async (req, res, next) => {
