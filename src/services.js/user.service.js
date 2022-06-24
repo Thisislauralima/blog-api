@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { User } = require('../database/models');
 
-const { USER_ALREADY_REGISTERED } = require('../utils/constants');
+const { USER_ALREADY_REGISTERED, USER_NOT_FOUND } = require('../utils/constants');
 
 const TOKEN_SECRET = process.env.JWT_SECRET;
 
@@ -25,10 +25,22 @@ const setUser = async (displayName, email, password, image) => {
 };
 
 const getUsers = () => User.findAll({
-  attributes: ['id', 'displayName', 'email', 'image'],
+  attributes: { exclude: ['password'] },
 });
+
+const getUserById = async (id) => {
+  const user = await User.findAll({
+    where: { id },
+    attributes: { exclude: ['password'] },
+  });
+  if (!user.length) {
+    return USER_NOT_FOUND;
+  }
+  return user;
+};
 
 module.exports = {
   setUser,
   getUsers,
+  getUserById,
 };
