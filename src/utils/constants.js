@@ -11,6 +11,7 @@ const PASSWORD_MIN_LENGTH = { code: 400,
 const USER_ALREADY_REGISTERED = { code: 409, message: 'User already registered' };
 const USER_NOT_FOUND = { code: 404, message: 'User does not exist' };
 const NAME_NOT_FOUND = { code: 400, message: '"name" is required' };
+const CATEGORY_ID_NOT_FOUND = { code: 400, message: '"categoryIds" not found' };
 
 const EMAIL_REGEX = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/;
 
@@ -26,4 +27,5 @@ module.exports = {
   INVALID_TOKEN,
   USER_NOT_FOUND,
   NAME_NOT_FOUND,
+  CATEGORY_ID_NOT_FOUND,
 };
