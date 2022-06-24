@@ -10,5 +10,6 @@ const middlewares = require('./middlewares');
 
 router.post('/login', middlewares.validateLogin, rescue(loginController.login));
 router.post('/user', middlewares.validateFields, rescue(userController.setUser));
+router.get('/user', middlewares.authMiddleware, rescue(userController.getUsers));
 
 module.exports = router;
