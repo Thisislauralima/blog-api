@@ -50,9 +50,12 @@ const setCategory = async (category) => {
   return categoryObj;
 };
 
+const getCategories = () => Category.findAll();
+
 module.exports = {
   setUser,
   getUsers,
   getUserById,
   setCategory,
+  getCategories,
 };

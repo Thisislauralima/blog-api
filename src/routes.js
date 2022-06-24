@@ -14,5 +14,6 @@ router.get('/user', middlewares.authMiddleware, rescue(userController.getUsers))
 router.get('/user/:id', middlewares.authMiddleware, rescue(userController.getUserById));
 router.post('/categories', middlewares.authMiddleware,
   middlewares.validateName, rescue(userController.setCategory));
+router.get('/categories', middlewares.authMiddleware, userController.getCategories);
 
 module.exports = router;
