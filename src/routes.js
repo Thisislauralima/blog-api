@@ -20,5 +20,5 @@ router.get('/categories', middlewares.authMiddleware, categoryController.getCate
 router.post('/post', middlewares.authMiddleware,
 middlewares.validateBlogPost, postController.setPost);
 router.get('/post', middlewares.authMiddleware, postController.getPosts);
-
+router.get('/post/:id', middlewares.authMiddleware, postController.getPostById);
 module.exports = router;

@@ -1,5 +1,5 @@
 const { BlogPost, PostCategory, Category, User } = require('../database/models');
-const { CATEGORY_ID_NOT_FOUND } = require('../utils/constants');
+const { CATEGORY_ID_NOT_FOUND, POST_NOT_FOUND } = require('../utils/constants');
 
 const checkIdsOnDb = async (categoryIds) => {
   const isIdRegistered = Promise.all(categoryIds.map((el) => 
@@ -63,7 +63,28 @@ const getPosts = () => BlogPost.findAll({
   ],
 });
 
+const getPostById = async (id) => {
+  const post = await BlogPost.findByPk(id, {
+    include: [
+      {
+        model: User,
+        as: 'user',
+        attributes: {
+          exclude: ['password'],
+        },
+      }, { 
+      model: Category,
+      as: 'categories',
+      through: { attributes: [] },
+      },
+    ],
+  });
+  if (post === null) return POST_NOT_FOUND;
+  return post;
+};
+
 module.exports = {
   setPost,
   getPosts,
+  getPostById,
 };
