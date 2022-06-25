@@ -36,9 +36,21 @@ const editPost = async (req, res, next) => {
   return res.status(200).json(editedPost);
 };
 
+const deletePost = async (req, res, next) => {
+  const { id } = req.params;
+  const { user } = req;
+  const deletedPost = await postService.deletePost(id, user);
+  if (JSON.stringify(deletedPost) === JSON.stringify(UNAUTHORIZED_USER)) {
+    return next(UNAUTHORIZED_USER);
+  }
+  if (JSON.stringify(deletedPost) === JSON.stringify(POST_NOT_FOUND)) return next(POST_NOT_FOUND);
+  return res.status(204).end();
+};
+
 module.exports = {
   setPost,
   getPosts,
   getPostById,
   editPost,
+  deletePost,
 };

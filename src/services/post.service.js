@@ -93,9 +93,18 @@ const editPost = async (userId, title, content, postId) => {
   return editedPost;
 };
 
+const deletePost = async (postId, userId) => {
+  const post = await BlogPost.findByPk(postId);
+  if (post === null) return POST_NOT_FOUND;
+  if (post.dataValues.userId !== userId.userId) return UNAUTHORIZED_USER;
+
+  await BlogPost.destroy({ where: { id: postId } });
+};
+
 module.exports = {
   setPost,
   getPosts,
   getPostById,
   editPost,
+  deletePost,
 };
