@@ -1,5 +1,5 @@
 const { BlogPost, PostCategory, Category, User } = require('../database/models');
-const { CATEGORY_ID_NOT_FOUND, POST_NOT_FOUND } = require('../utils/constants');
+const { CATEGORY_ID_NOT_FOUND, POST_NOT_FOUND, UNAUTHORIZED_USER } = require('../utils/constants');
 
 const checkIdsOnDb = async (categoryIds) => {
   const isIdRegistered = Promise.all(categoryIds.map((el) => 
@@ -83,8 +83,19 @@ const getPostById = async (id) => {
   return post;
 };
 
+const editPost = async (userId, title, content, postId) => {
+  const post = await BlogPost.findByPk(postId);
+  if (post.dataValues.userId !== userId.userId) {
+    return UNAUTHORIZED_USER;
+  }
+  await BlogPost.update({ title, content }, { where: { userId: userId.userId } });
+  const editedPost = await getPostById(postId);
+  return editedPost;
+};
+
 module.exports = {
   setPost,
   getPosts,
   getPostById,
+  editPost,
 };

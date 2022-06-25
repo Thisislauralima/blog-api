@@ -1,5 +1,5 @@
 const postService = require('../services/post.service');
-const { CATEGORY_ID_NOT_FOUND, POST_NOT_FOUND } = require('../utils/constants');
+const { CATEGORY_ID_NOT_FOUND, POST_NOT_FOUND, UNAUTHORIZED_USER } = require('../utils/constants');
 
 const setPost = async (req, res, next) => {
   const { title, content, categoryIds } = req.body;
@@ -25,8 +25,20 @@ const getPostById = async (req, res, next) => {
   return res.status(200).json(post);
 };
 
+const editPost = async (req, res, next) => {
+  const { title, content } = req.body;
+  const { id } = req.params;
+  const { user } = req;
+  const editedPost = await postService.editPost(user, title, content, id);
+  if (JSON.stringify(editedPost) === JSON.stringify(UNAUTHORIZED_USER)) {
+    return next(UNAUTHORIZED_USER);
+  }
+  return res.status(200).json(editedPost);
+};
+
 module.exports = {
   setPost,
   getPosts,
   getPostById,
+  editPost,
 };

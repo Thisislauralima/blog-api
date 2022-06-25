@@ -13,6 +13,7 @@ const USER_NOT_FOUND = { code: 404, message: 'User does not exist' };
 const NAME_NOT_FOUND = { code: 400, message: '"name" is required' };
 const CATEGORY_ID_NOT_FOUND = { code: 400, message: '"categoryIds" not found' };
 const POST_NOT_FOUND = { code: 404, message: 'Post does not exist' };
+const UNAUTHORIZED_USER = { code: 401, message: 'Unauthorized user' };
 
 const EMAIL_REGEX = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/;
 
@@ -30,4 +31,5 @@ module.exports = {
   NAME_NOT_FOUND,
   CATEGORY_ID_NOT_FOUND,
   POST_NOT_FOUND,
+  UNAUTHORIZED_USER,
 };
