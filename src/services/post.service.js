@@ -1,4 +1,4 @@
-const { BlogPost, PostCategory, Category } = require('../database/models');
+const { BlogPost, PostCategory, Category, User } = require('../database/models');
 const { CATEGORY_ID_NOT_FOUND } = require('../utils/constants');
 
 const checkIdsOnDb = async (categoryIds) => {
@@ -44,6 +44,26 @@ const setPost = async (title, content, categoryIds, user) => {
   return createdPost(title, content, categoryIds, user);
 };
 
+const getPosts = () => BlogPost.findAll({
+  include: [
+    {
+      model: User,
+      as: 'user',
+      attributes: {
+        exclude: ['password'],
+      },
+    },
+    {
+      model: Category,
+      as: 'categories',
+      through: {
+        attributes: [],
+      },
+    },
+  ],
+});
+
 module.exports = {
   setPost,
+  getPosts,
 };
