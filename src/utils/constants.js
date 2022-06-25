@@ -1,3 +1,5 @@
+const { Category, User } = require('../database/models');
+
 const FIELDS_MISSING = { code: 400, message: 'Some required fields are missing' };
 const INVALID_FIELDS = { code: 400, message: 'Invalid fields' };
 const TOKEN_NOT_FOUND = { status: 401, message: 'Token not found' };
@@ -14,6 +16,20 @@ const NAME_NOT_FOUND = { code: 400, message: '"name" is required' };
 const CATEGORY_ID_NOT_FOUND = { code: 400, message: '"categoryIds" not found' };
 const POST_NOT_FOUND = { code: 404, message: 'Post does not exist' };
 const UNAUTHORIZED_USER = { code: 401, message: 'Unauthorized user' };
+
+const USER_MODEL = {
+  model: User,
+  as: 'user',
+  attributes: {
+    exclude: ['password'],
+  },
+};
+
+const CATEGORY_MODEL = { 
+  model: Category,
+  as: 'categories',
+  through: { attributes: [] },
+};
 
 const EMAIL_REGEX = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/;
 
@@ -32,4 +48,6 @@ module.exports = {
   CATEGORY_ID_NOT_FOUND,
   POST_NOT_FOUND,
   UNAUTHORIZED_USER,
+  USER_MODEL,
+  CATEGORY_MODEL,
 };

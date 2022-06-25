@@ -1,5 +1,14 @@
-const { BlogPost, PostCategory, Category, User } = require('../database/models');
-const { CATEGORY_ID_NOT_FOUND, POST_NOT_FOUND, UNAUTHORIZED_USER } = require('../utils/constants');
+const { Op } = require('sequelize');
+
+const { BlogPost, PostCategory, Category } = require('../database/models');
+
+const {
+  CATEGORY_ID_NOT_FOUND,
+  POST_NOT_FOUND,
+  UNAUTHORIZED_USER,
+  USER_MODEL,
+  CATEGORY_MODEL,
+} = require('../utils/constants');
 
 const checkIdsOnDb = async (categoryIds) => {
   const isIdRegistered = Promise.all(categoryIds.map((el) => 
@@ -45,39 +54,12 @@ const setPost = async (title, content, categoryIds, user) => {
 };
 
 const getPosts = () => BlogPost.findAll({
-  include: [
-    {
-      model: User,
-      as: 'user',
-      attributes: {
-        exclude: ['password'],
-      },
-    },
-    {
-      model: Category,
-      as: 'categories',
-      through: {
-        attributes: [],
-      },
-    },
-  ],
+  include: [USER_MODEL, CATEGORY_MODEL],
 });
 
 const getPostById = async (id) => {
   const post = await BlogPost.findByPk(id, {
-    include: [
-      {
-        model: User,
-        as: 'user',
-        attributes: {
-          exclude: ['password'],
-        },
-      }, { 
-      model: Category,
-      as: 'categories',
-      through: { attributes: [] },
-      },
-    ],
+    include: [USER_MODEL, CATEGORY_MODEL],
   });
   if (post === null) return POST_NOT_FOUND;
   return post;
@@ -101,10 +83,25 @@ const deletePost = async (postId, userId) => {
   await BlogPost.destroy({ where: { id: postId } });
 };
 
+const getPostByTerm = async (query) => {
+  if (query === '') return getPosts();
+  const searchedPost = await BlogPost.findAll({
+    where: {
+      [Op.or]: [
+        { title: { [Op.like]: `%${query}%` } },
+        { content: { [Op.like]: `%${query}%` } },
+      ],
+    },
+    include: [USER_MODEL, CATEGORY_MODEL],
+  });
+  return searchedPost;
+};
+
 module.exports = {
   setPost,
   getPosts,
   getPostById,
   editPost,
   deletePost,
+  getPostByTerm,
 };

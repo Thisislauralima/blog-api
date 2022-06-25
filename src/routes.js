@@ -30,6 +30,8 @@ middlewares.validateBlogPost, rescue(postController.setPost));
 
 router.get('/post', middlewares.authMiddleware, rescue(postController.getPosts));
 
+router.get('/post/search', middlewares.authMiddleware, rescue(postController.getPostByTerm));
+
 router.get('/post/:id', middlewares.authMiddleware, rescue(postController.getPostById));
 
 router.put('/post/:id', middlewares.authMiddleware, middlewares.validateEditedPost,
