@@ -6,3 +6,6 @@ consistindo-se em uma API capaz de responder a requisições do tipo: GET, PUT, 
 
 ## Tecnologias usadas
 > NodeJS, ExpressJS, MYSQL, ES6, Sequelize.
+
+## Notas ✍️
+Todos arquivos do projeto, exceto pelos arquivos dentro do path src/database/seeders, foram desenvolvidos por conta própria.
