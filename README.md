@@ -21,7 +21,7 @@ O Blog API é um projeto que foi desenvolvido durante o módulo de Back-End do c
 consistindo-se em uma API capaz de responder a requisições do tipo: GET, PUT, POST e DELETE.
 
 ## Tecnologias usadas
-> NodeJS, ExpressJS, MYSQL, ES6, Sequelize, arquitetura RESTful.
+> NodeJS, ExpressJS, MYSQL, ES6, Sequelize, arquitetura web aplicada, JWT (Json Web Token).
 
 ## Notas ✍️
 Todos arquivos do projeto, exceto pelos arquivos dentro do path src/database/seeders, foram desenvolvidos por conta própria.
