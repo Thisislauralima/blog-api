@@ -1,7 +1,4 @@
-
-<div align="center">
-## Blog API
-</div>
+<div align="center"><h1>Blog API</h1></div>
 
 <br />
 
@@ -13,6 +10,7 @@
 	<img width="88px" height="30px" src="https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white" />
 </div>
 
+<br />
 
 O Blog API é um projeto que foi desenvolvido durante o módulo de Back-End do curso de Desenvolvimento Web da Trybe,
 consistindo-se em uma API capaz de responder a requisições do tipo: GET, PUT, POST e DELETE.
